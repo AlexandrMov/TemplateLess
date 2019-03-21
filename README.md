@@ -1,6 +1,6 @@
 # TemplateLess
 Example html-build usage:
-```
+```js
 const { TemplateLess, TemplateDom } = require('../index.js');
 const { HtmlRender } = require('../render/index.js');
 
@@ -34,7 +34,7 @@ html.body(body => {
 
 
 Example css(less, sass) build usage:
-```
+```js
 const { TemplateLess, TemplateDom } = require('../index.js');
 const { CssRender } = require('../render/index.js');
 const cssRoot = new TemplateLess(new TemplateDom());
