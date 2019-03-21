@@ -1,8 +1,7 @@
 # TemplateLess
 Example html-build usage:
 ```js
-const { TemplateLess, TemplateDom } = require('../index.js');
-const { HtmlRender } = require('../render/index.js');
+const { TemplateLess, TemplateDom, HtmlRender } = require('templateless');
 
 const html = new TemplateLess(new TemplateDom('html'));
 
@@ -35,8 +34,7 @@ html.body(body => {
 
 Example css(less, sass) build usage:
 ```js
-const { TemplateLess, TemplateDom } = require('../index.js');
-const { CssRender } = require('../render/index.js');
+const { TemplateLess, TemplateDom, CssRender } = require('templateless');
 const cssRoot = new TemplateLess(new TemplateDom());
 cssRoot[`@media (min-width: 480px) and (max-width: 576px)`](media => {
   media['.block'](block => {
