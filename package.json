@@ -1,0 +1,19 @@
+{
+  "name": "templateless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexandrMov/TemplateLess.git"
+  },
+  "author": "Movsunov A. N.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexandrMov/TemplateLess/issues"
+  },
+  "homepage": "https://github.com/AlexandrMov/TemplateLess#readme"
+}
