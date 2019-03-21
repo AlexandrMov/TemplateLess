@@ -30,11 +30,11 @@ class CssRender {
 				if (! node.hasOwnProperty(property)) {
 					continue;
 				}
-
+				
 				if (property.startsWith('__$_')) {
 					continue;
 				}
-
+				
 				if (! this.pretty) {
 					resultCss += ' ';
 				} else {
@@ -48,11 +48,11 @@ class CssRender {
 			
 			for (const child of node.__$_nested) {
 				let childHtml;
-
+				
 				if (this.pretty) {
 					resultCss += `\n${tabChar}`;
 				}
-
+				
 				if (typeof child === 'string') {
 					childHtml = child;
 				} else {
@@ -112,8 +112,9 @@ class HtmlRender {
 		}
 
 		resultHtml += '>';
-
+		
 		if (node.__$_nested && node.__$_nested.length) {
+			let isPreviousString = false;
 			
 			for (const child of node.__$_nested) {
 				let childHtml;
@@ -121,11 +122,17 @@ class HtmlRender {
 				if (this.pretty) {
 					resultHtml += `\n${tabChar}`;
 				}
-
+				
 				if (typeof child === 'string') {
-					childHtml = child;
+					if (isPreviousString) {
+						childHtml = ' ' + child;
+					} else {
+						isPreviousString = true;
+						childHtml = child;
+					}
 				} else {
 					childHtml = this.render(child, level + 1);
+					isPreviousString = false;
 				}
 
 				resultHtml += childHtml;
