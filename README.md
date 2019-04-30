@@ -29,6 +29,8 @@ html.body(body => {
 	}
 	
 });
+const htmlRender = new HtmlRender();
+console.log('<!DOCTYPE html>' + htmlRender.render(html));
 ```
 
 
@@ -38,10 +40,12 @@ const { TemplateLess, TemplateDom, CssRender } = require('templateless');
 const cssRoot = new TemplateLess(new TemplateDom());
 cssRoot[`@media (min-width: 480px) and (max-width: 576px)`](media => {
   media['.block'](block => {
-    block.backgroundPosition = '50% 0';
-    block.backgroundSize = 'cover';
-    block.backgroundRepeat = 'no-repeat';
-    block.backgroundImage = 'url(test.png)';
+    block.background_position = '50% 0';
+    block.background_size = 'cover';
+    block.background_repeat = 'no-repeat';
+    block.background_image = 'url(test.png)';
   });
 });
+const cssRender = new CssRender();
+console.log(cssRender.render(cssRoot));
 ```

@@ -1,9 +1,16 @@
 'use strict';
 
 class CssRender {
-	constructor(pretty, tabChar) {
+	constructor(params) {
+		if (! params) {
+			params = {};
+		}
+		
+		const {pretty, tabChar, snakeCase = true} = params;
+		
 		this.pretty = pretty;
 		this.tabChar = tabChar;
+		this.snakeCase = snakeCase;
 	}
 	
 	render(node, level = 1) {
@@ -19,29 +26,33 @@ class CssRender {
 			if (this.tabChar) {
 				tabChar = this.tabChar.repeat(level);
 			}
-
+			
 			if (this.pretty) {
 				resultCss += `${tabChar}`;
 			}
-
+			
 			resultCss = ' ' + node.__$_tag + ' {';
-
-			for (const property in node) {
-				if (! node.hasOwnProperty(property)) {
-					continue;
-				}
-				
-				if (property.startsWith('__$_')) {
-					continue;
-				}
-				
-				if (! this.pretty) {
-					resultCss += ' ';
-				} else {
-					resultCss += `\n${tabChar}${this.tabChar}`;
-				}        
-				resultCss += `${property}: "${node[property]}";`;
+		}
+		
+		for (const property in node) {
+			if (! node.hasOwnProperty(property)) {
+				continue;
 			}
+			
+			if (property.startsWith('__$_')) {
+				continue;
+			}
+			
+			if (this.pretty) {
+				resultCss += `\n${tabChar}${this.tabChar}`;
+			}
+			
+			let renderProperty = property;
+			if (this.snakeCase) {
+				renderProperty = property.replace(/_/g, '-');
+			}
+			
+			resultCss += `${renderProperty}: ${node[property]};`;
 		}
 		
 		if (node.__$_nested && node.__$_nested.length) {
@@ -58,19 +69,19 @@ class CssRender {
 				} else {
 					childHtml = this.render(child, level + 1);
 				}
-
+				
 				resultCss += childHtml;
 			}
 		}
-
+		
 		if (this.pretty) {
 			resultCss += `\n${tabChar.replace(this.tabChar, '')}`;
 		}
-
+		
 		if (node.__$_tag) {
 			resultCss += `}`; 
 		}
-
+		
 		return resultCss;
 	}
 }
